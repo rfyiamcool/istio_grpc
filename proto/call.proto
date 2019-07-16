@@ -25,11 +25,6 @@ service CallCache
     rpc DeleteData(DataModel) returns(DataModel);
 }
 
-service CallCacheServ
-{
-    rpc GetName(NameReq) returns(NameResp);
-}
-
 service CallStore
 {
     rpc GetName(NameReq) returns(NameResp);
