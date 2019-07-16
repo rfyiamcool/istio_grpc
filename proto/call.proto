@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+
+service CallProxy
+{
+    rpc GetName(NameReq) returns(NameResp);
+    rpc GetDataFromCache(DataModel) returns(DataModel);
+    rpc GetDataFromStore(DataModel) returns(DataModel);
+    rpc SetDataToCache(DataModel) returns(DataModel);
+    rpc SetDataToStore(DataModel) returns(DataModel);
+
+    // get from cache, if cache null, continue get store
+    rpc GetData(DataModel) returns(DataModel);
+
+    // delete cache, update store
+    rpc SetData(DataModel) returns(DataModel);
+}
+
+service CallCache
+{
+    rpc GetName(NameReq) returns(NameResp);
+    rpc GetData(DataModel) returns(DataModel);
+    rpc GetDataTrace(DataModel) returns(DataModel);
+    rpc SetData(DataModel) returns(DataModel);
+    rpc DeleteData(DataModel) returns(DataModel);
+}
+
+service CallCacheServ
+{
+    rpc GetName(NameReq) returns(NameResp);
+}
+
+service CallStore
+{
+    rpc GetName(NameReq) returns(NameResp);
+    rpc GetData(DataModel) returns(DataModel);
+    rpc SetData(DataModel) returns(DataModel);
+    rpc DeleteData(DataModel) returns(DataModel);
+}
+
+message NameReq{
+}
+
+message NameResp{
+    string name = 1;
+    string host = 2;
+}
+
+message DataModel{
+    string key = 1;
+    string value = 2;
+    string status = 3;
+    WhereType where = 4;
+}
+
+enum WhereType 
+{
+    CACHE = 0;
+    STORE = 1;
+}
