@@ -86,7 +86,6 @@ func (s *Server) GetDataTrace(ctx context.Context, req *call.DataModel) (*call.D
 
 	client, err := pool.GetStoreClient()
 	if err != nil {
-		log.Println(90)
 		return &call.DataModel{}, err
 	}
 
@@ -107,8 +106,6 @@ func (s *Server) GetDataTrace(ctx context.Context, req *call.DataModel) (*call.D
 func (s *Server) SetData(ctx context.Context, req *call.DataModel) (*call.DataModel, error) {
 	s.Lock()
 	defer s.Unlock()
-
-	log.Println(111)
 
 	s.store[req.Key] = req.Value
 	return &call.DataModel{
